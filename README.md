@@ -374,47 +374,68 @@ type: "step" – New agent message
 
 type: "complete" – Debate finished with final decision
 
-📁 Project Structure
-text
-conviction/
+## 📁 Project Structure
+
+```text
+bema/
 ├── backend/
 │   ├── agents/
-│   │   ├── apollo.js          # Bull agent (Claude API)
-│   │   ├── cassandra.js       # Bear agent (Claude API)
-│   │   ├── sentinel.js        # Risk agent (Claude API)
-│   │   └── oracle.js          # Quant agent (market data)
-│   ├── contracts/             # Smart contract files (optional)
-│   ├── debate-orchestrator.js # Main debate logic
-│   ├── market-data.js         # CoinGecko + Binance API
-│   ├── payment.js             # Circle payment integration
-│   ├── server.js              # Express API server
-│   ├── package.json
-│   └── .env                   # Environment variables
+│   │   ├── apollo.js                 # Bull agent reasoning
+│   │   ├── cassandra.js              # Bear agent reasoning
+│   │   ├── sentinel.js               # Risk manager agent
+│   │   └── oracle.js                 # Quant / market-data agent
+│   ├── contracts/                    # Backend contract helpers or references
+│   ├── debate-orchestrator.js        # Debate flow and agent coordination
+│   ├── market-data.js                # Market data integration
+│   ├── payment.js                    # Circle payment integration
+│   ├── server.js                     # Express API server
+│   ├── package.json                  # Backend dependencies and scripts
+│   └── .env                          # Backend environment variables
 │
 ├── frontend/
 │   ├── public/
-│   │   └── gavel.mp3          # Optional local sound file
+│   │   └── gavel.mp3                 # Optional local sound asset
 │   ├── src/
 │   │   ├── components/
-│   │   │   ├── SenateChamber.jsx       # 3D scene with pedestals
-│   │   │   ├── TreasuryAltar.jsx       # Treasury display with roll animation
-│   │   │   ├── VoteScales.jsx          # Vote tally with animated bars
-│   │   │   ├── Controls.jsx            # Asset selector + start debate
-│   │   │   └── DebateTranscript3D.jsx  # Live debate transcript
-│   │   ├── App.jsx            # Main application
-│   │   ├── main.jsx           # Entry point
-│   │   └── index.css          # Global styles + Tailwind v4
-│   ├── index.html
-│   ├── vite.config.js
-│   ├── tailwind.config.js
-│   ├── package.json
-│   └── .env
+│   │   │   ├── SenateChamber.jsx      # 3D senate chamber scene
+│   │   │   ├── TreasuryAltar.jsx      # Treasury display and animation
+│   │   │   ├── VoteScales.jsx         # Vote tally visualization
+│   │   │   ├── Controls.jsx           # Asset selector and debate controls
+│   │   │   └── DebateTranscript3D.jsx # Live debate transcript panel
+│   │   ├── App.jsx                   # Main frontend application
+│   │   ├── main.jsx                  # React entry point
+│   │   └── index.css                 # Global styles and Tailwind setup
+│   ├── index.html                    # Vite HTML entry
+│   ├── vite.config.js                # Vite configuration
+│   ├── tailwind.config.js            # Tailwind configuration
+│   ├── package.json                  # Frontend dependencies and scripts
+│   └── .env                          # Frontend environment variables
 │
 ├── contracts/
-│   └── ConvictionTreasury.sol # Arc treasury smart contract
+│   └── ConvictionTreasury.sol        # Arc treasury smart contract
 │
 ├── .gitignore
-└── README.md                  # This file
+└── README.md                         # Project documentation
+```
+
+### Key Components
+
+| Path | Purpose |
+|------|---------|
+| `backend/agents/` | Contains the four AI agent personalities and reasoning modules. |
+| `backend/debate-orchestrator.js` | Coordinates the debate order, agent responses, voting, and final decision. |
+| `backend/server.js` | Exposes the Express API and SSE endpoints used by the frontend. |
+| `backend/payment.js` | Handles Circle payment logic for custom motions. |
+| `frontend/src/components/` | Contains the 3D chamber, treasury UI, vote display, controls, and transcript components. |
+| `contracts/` | Contains the optional Arc treasury smart contract used for on-chain execution. |
+
+### Development Flow
+
+1. Start the backend from `backend/` to expose the API and debate endpoints.
+2. Start the frontend from `frontend/` to run the Vite application.
+3. Configure environment variables only when using real AI, payment, or Arc execution.
+4. Use demo/mock mode when keys are not configured.
+
 🔧 Troubleshooting & Common Issues
 Issue: "Failed to load resource: 404"
 Solution: Backend not running. Start backend with node server.js in backend/ folder.
